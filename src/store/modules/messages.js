@@ -62,45 +62,6 @@ const actions = {
    */
   addMessage({ commit }, message) {
     commit('pushMessage', message)
-  },
-  /**
-   *  Remove Message
-   *
-   *  @param {Object} commit
-   *  @param {Number} id
-   */
-  removeMessage({ commit }, id) {
-    if (typeof id !== 'number')
-      return;
-
-    commit('removeMessage', id)
-  },
-  /**
-   *  Complete Message
-   *
-   *  @param {Object} commit
-   *  @param {Number} id
-   */
-  completeMessage({ commit }, id) {
-    if (typeof id !== 'number')
-      return;
-
-    commit('completeMessage', id)
-  },
-  /**
-   *  Update a message from messages
-   *
-   *  @param {Object} commit
-   *  @param {Object} message
-   */
-  updateMessage({ commit }, message) {
-    commit('updateMessage', message)
-  },
-  /**
-   *  Delete a message from message list
-   */
-  deleteMessage({ commit }, id) {
-    commit('deleteMessageById', id)
   }
 };
 
@@ -142,74 +103,6 @@ const mutations = {
    */
   pushMessage(state, message) {
     state.messages.push(message)
-  },
-  /**
-   *  Remove Message
-   *
-   *  @param {Object} state
-   *  @param {Number} id
-   */
-  removeMessage(state, id) {
-    const messages = state.messages
-    const newMessages = messages.map(t => {
-      if (t.id === id)
-        t.status = 'deleted'
-
-      return t
-    })
-
-    state.messages = newMessages
-  },
-  /**
-   *  Complete Message
-   *
-   *  @param {Object} state
-   *  @param {Number} id
-   */
-  completeMessage(state, id) {
-    const currentMessages = state.messages
-    const newMessages = currentMessages.map(t => {
-      if (t.id === id)
-        t.status = 'done'
-
-      return t
-    });
-
-    state.messages = newMessages
-  },
-  /**
-   *  Update a message from the message list
-   *
-   *  @param {Object} state
-   *  @param {Object} message
-   */
-  updateMessage(state, message) {
-    const currentMessages = state.messages
-    const newMessages = currentMessages.map(t => {
-      if (t.id === message.id) {
-        t.description = message.description
-        t.status = message.status
-      }
-
-      return t
-    });
-
-    state.messages = newMessages
-  },
-  /**
-   *  Look for a message and remove it from message list
-   *
-   *  @param {Object} state
-   *  @param {Number} id
-   */
-  deleteMessageById(state, id) {
-    const toSpliceMessages = state.messages
-
-    const indexToSplice = toSpliceMessages.findIndex(t => t.id === id)
-
-    toSpliceMessages.splice(indexToSplice, 1);
-
-    state.messages = toSpliceMessages
   }
 };
 
