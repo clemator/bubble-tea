@@ -11,8 +11,16 @@ Vue.config.productionTip = false
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', component: TheShopOwnerLayout},
-  { path: '/:user', component: TheUserLayout}
+  {
+    path: '/',
+    component: TheShopOwnerLayout,
+    name: 'shop-view'
+  },
+  {
+    path: '/:user',
+    component: TheUserLayout,
+    name: 'user-view'
+  }
 ]
 
 const router = new VueRouter({ routes })

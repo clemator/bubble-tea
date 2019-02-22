@@ -8,17 +8,17 @@ import storageApi from '../storageApi'
 export const fetchMixin = {
   methods: {
     /**
-     *  Hydrate users
-     *    - Fetch users data and hydrate the user store
+     *  Hydrate store
+     *    - Fetch users data and hydrate the store
      *
      *  @return {Promise}
      */
-    hydrateUsers() {
+    hydrateStore() {
       return storageApi.get()
-        .then({ users } => {
-          this.$store.dispatch('users/setUsers', users)
+        .then((data) => {
+          this.$store.dispatch('users/setUsers', data || {})
         })
-        .catch(console.error);
+        .catch(console.error)
     },
     /**
      *  Get users from store
@@ -32,40 +32,32 @@ export const fetchMixin = {
      *  Get user by name
      *
      *  @param {string} userName
-     *  @return <string> if match found <undefined> otherwise
+     *  @return <object> if match found <undefined> otherwise
      */
-    getUser(userName = '') {
-      return this.$store.getters['users/users'].find(userName)
+    getUser(userName) {
+      return this.$store.getters['users/userByName'](userName)
     },
     /**
-     *  Post a User
+     *  Post a new user
      *
      *  @param {string} userName
      *  @return {Promise}
      */
     postUser(userName) {
-      return storageApi.set(userName)
+      this.$store.dispatch('users/addUser', userName)
+      return storageApi.set(this.$store.getters['users/users'])
+        .catch(console.error)
     },
     /**
-     *  Hydrate messages
-     *    - Fetch messages data and hydrate the message store
+     *  Post a message
      *
+     *  @param {object} message
      *  @return {Promise}
      */
-    hydrateMessages() {
-      return storageApi.get()
-        .then({ messages } => {
-          this.$store.dispatch('messages/setMessages', messages)
-        })
-        .catch(console.error);
-    },
-    /**
-     *  Get messages from store
-     *
-     *  @return {array}
-     */
-    getMessages() {
-      return this.$store.getters['messages/messages']
+    postMessage(message) {
+      this.$store.dispatch('users/postMessage', message)
+      return storageApi.set(this.$store.getters['users/users'])
+        .catch(console.error)
     }
   }
 }
