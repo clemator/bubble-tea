@@ -1,6 +1,6 @@
 <template>
   <div class="the-user-layout">
-    COUCOU user {{ $route.params.user }}
+    <h1>Welcome {{ $route.params.user }}</h1>
     <MessageHandlerContainer></MessageHandlerContainer>
   </div>
 </template>

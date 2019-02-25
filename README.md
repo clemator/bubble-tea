@@ -1,5 +1,26 @@
 # bubble-shop
 
+
+## Project
+
+This project use `vuex`, `vue-router` and supports Single File Components.
+
+ - Folders:
+   - `src`
+     - `assets` nothing to say
+     - `components` where all components are
+     - `layouts` where all layout components are
+     - `mixin` where the fetch mixin is
+     - `store` where the users store is
+  - `public` contains both index.html and the service worker files
+- Files:
+  - `src/main.js` the app entry point
+  - `src/App.vue` the app main component
+  - `src/storageApi.js` the JS file that contains all exposed methods to store and get data from localStorage
+  - `public/service-worker.js` the service worker
+  - `public/index.html` the main html file
+
+
 ## Project setup
 ```
 npm install
@@ -13,11 +34,6 @@ npm run serve
 ### Compiles and minifies for production
 ```
 npm run build
-```
-
-### Run your tests
-```
-npm run test
 ```
 
 ### Lints and fixes files

@@ -4,7 +4,7 @@
       v-for="username in usernameList"
       :key="username"
       class="user-name"
-      :class="{ active: user.userName === username }"
+      :class="{ active: selectedUser === username }"
       @click="setActiveUser(username)"
     >
       {{ username }}
@@ -13,27 +13,19 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'UsersList',
-  props: {
-    collection: {
-      type: Object,
-      required: true
-    }
-  },
   computed: {
-    ...mapGetters({
-      user: 'users/user'
-    }),
+    ...mapState('users', ['selectedUser', 'users']),
     usernameList() {
-      return Object.keys(this.collection)
+      return Object.keys(this.users)
     }
   },
   methods: {
     setActiveUser(username) {
-      this.$store.dispatch('users/setUser', username)
+      this.$store.dispatch('users/setSelectedUser', username)
     }
   }
 }
@@ -43,7 +35,9 @@ export default {
 .user-list {
   display: flex;
   height: 100%;
+  max-height: 390px;
   flex-direction: column;
+  box-sizing: border-box;
   overflow-y: auto;
   .user-name {
     padding: 15px 25px;

@@ -3,21 +3,24 @@
     class="the-message-list"
   >
     <ul class="message-list">
-      <li
+      <MessageListItem
         v-for="message in messages"
         :key="message.sendAt"
-        class="message-item"
+        :message="message"
         :class="{ 'own-message': message.sender === currentUser }"
-      >
-        {{ message.content }}
-      </li>
+      ></MessageListItem>
     </ul>
   </div>
 </template>
 
 <script>
+import MessageListItem from './MessageListItem'
+
 export default {
   name: 'TheMessageList',
+  components: {
+    MessageListItem
+  },
   props: {
     messages: {
       type: Array,
@@ -30,14 +33,19 @@ export default {
       type: String,
       required: true
     }
+  },
+  // Scroll to bottom every time the component updates
+  updated() {
+    const container = this.$el.querySelector('.message-list')
+    container.scrollTop = container.scrollHeight
   }
 }
 </script>
 
 <style lang="scss">
 .the-message-list {
-  min-height: 350px;
-  max-height: 350px;
+  height: 350px;
+  width: 400px;
   border: 1px solid black;
   .message-list {
     display: flex;
@@ -49,22 +57,6 @@ export default {
     box-sizing: border-box;
     overflow-y: auto;
     list-style: none;
-    .message-item {
-      display: block;
-      margin: 0 0 20px 0;
-      padding: 10px;
-      width: auto;
-      border: 1px solid gray;
-      border-radius: 5px;
-      background-color: #FFF;
-      text-align: left;
-      &.own-message {
-        align-self: flex-end;
-        background-color: rgba(0, 0, 0, 0.1);
-        text-align: right;
-
-      }
-    }
   }
 }
 </style>

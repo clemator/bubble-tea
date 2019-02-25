@@ -1,25 +1,24 @@
 <template>
   <div class="the-shop-owner-layout">
-    COUCOU shop owner
-    <MessageHandlerContainer>
-      <div slot-scope="{ users }">
-        <UserList
-          :collection="users"
-        ></UserList>
-      </div>
-    </MessageHandlerContainer>
+    <h1>Creepy shop owner</h1>
+    <div
+      class="shop-owner-container"
+    >
+      <UserListContainer></UserListContainer>
+      <MessageHandlerContainer></MessageHandlerContainer>
+    </div>
   </div>
 </template>
 
 <script>
 import MessageHandlerContainer from '../components/MessageHandlerContainer'
-import UserList from '../components/UserList'
+import UserListContainer from '../components/UserListContainer'
 
 export default {
   name: 'TheShopOwnerLayout',
   components: {
     MessageHandlerContainer,
-    UserList
+    UserListContainer
   }
 }
 </script>
@@ -29,5 +28,9 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  .shop-owner-container {
+    display: flex;
+    align-items: stretch;
+  }
 }
 </style>

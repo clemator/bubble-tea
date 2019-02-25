@@ -4,10 +4,7 @@
  */
 const state = {
   users: {},
-  user : {
-    userName: '',
-    messages: []
-  }
+  selectedUser: ''
 }
 
 const getters = {
@@ -21,13 +18,13 @@ const getters = {
     return state.users
   },
   /**
-   *  User
+   *  Seleted user
    *
    *  @param {Object} state
    *  @return {Object}
    */
-  user: (state) => {
-    return state.user
+  selectedUser: (state) => {
+    return state.selectedUser
   },
   /**
    *  User by name from users list
@@ -49,20 +46,20 @@ const actions = {
    *  @param {Object} commit
    *  @param {Array} users
    */
-  setUsers({ commit, state }, users) {
+  setUsers({ commit }, users) {
     if (Object.keys(users).length === 0)
       return;
 
     commit('pushUsers', users)
   },
   /**
-   *  Set a User
+   *  Set a selected user for shop owner
    *
    *  @param {Object} commit
    *  @param {String} userName
    */
-  setUser({ commit }, userName) {
-    commit('setUser', userName)
+  setSelectedUser({ commit }, userName) {
+    commit('setSelectedUser', userName)
   },
   /**
    *  Add a single user by username
@@ -70,8 +67,8 @@ const actions = {
    *  @param {Object} commit
    *  @param {String} userName
    */
-  addUser({ commit }, userName) {
-    commit('pushUser', userName)
+  addNewUser({ commit }, userName) {
+    commit('addNewUser', userName)
   },
   /**
    *  Post a new message
@@ -93,44 +90,38 @@ const mutations = {
    */
   pushUsers(state, users) {
     state.users = users
-    if (state.user.userName)
-      state.user.messages = state.users[state.user.userName].messages
   },
   /**
-   *  Push a User by it's name
+   *  Add a new user to users state
    *
    *  @param {Object} state
    *  @param {String} userName
    */
-  pushUser(state, userName) {
+  addNewUser(state, userName) {
     state.users[userName] = { messages: [] }
-    state.user.userName = userName
-    state.user.messages = []
   },
   /**
-   *  Set the User state property from the state Users collection
+   *  Set the user state property
    *
    *  @param {Object} commit
    *  @param {String} userName
    */
-  setUser(state, userName) {
-    const { messages } = state.users[userName]
-    state.user = { userName, messages }
+  setSelectedUser(state, userName) {
+    state.selectedUser = userName
   },
   /**
-   *  Post a new message to the current user
+   *  Post a new message to the selected user
    *
    *  @param {Object} state
    *  @param {Object} message
    */
   postMessage(state, message) {
-    state.user.messages.push(message)
-
     let newState = Object.keys(state.users)
       .reduce((acc, userName) => {
-        if (userName === state.user.userName) {
-          let { messages } = state.user
+        if (userName === state.selectedUser) {
+          let { messages } = state.users[userName]
           acc[userName] = { messages }
+          acc[userName].messages.push(message)
         }
         else
           acc[userName] = state.users[userName]

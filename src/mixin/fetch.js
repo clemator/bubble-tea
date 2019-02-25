@@ -44,7 +44,8 @@ export const fetchMixin = {
      *  @return {Promise}
      */
     postUser(userName) {
-      this.$store.dispatch('users/addUser', userName)
+      this.$store.dispatch('users/addNewUser', userName)
+      this.$store.dispatch('users/setSelectedUser', userName)
       return storageApi.set(this.$store.getters['users/users'])
         .catch(console.error)
     },

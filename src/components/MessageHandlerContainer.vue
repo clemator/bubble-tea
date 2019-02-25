@@ -2,24 +2,15 @@
   <div
     class="message-handler-container"
   >
-    <slot
-      :users="users"
-    ></slot>
+    <TheMessageList
+      :messages="selectedUserMessages"
+      :currentUser="currentUserName"
+    ></TheMessageList>
 
-    <div
-      class="message-container"
-    >
-      <TheMessageList
-        :messages="user.messages"
-        :currentUser="currentUserName"
-      ></TheMessageList>
-
-      <TheMessageForm
-        :callback="postNewMessage"
-        :status="(! isCurrentUserSelected) ? 'disabled' : 'default'"
-      ></TheMessageForm>
-    </div>
-
+    <TheMessageForm
+      :callback="postNewMessage"
+      :status="isUserSelected ? 'default' : 'disabled'"
+    ></TheMessageForm>
   </div>
 </template>
 
@@ -37,33 +28,40 @@ export default {
   },
   mixins: [fetchMixin],
   computed: {
-    // Map the store current user and users collection
-    ...mapState('users', ['user', 'users']),
+    // Map the store selected user and users collection data
+    ...mapState('users', ['selectedUser', 'users']),
     // Return the route username param if any, 'shop-owner' otherwise
     currentUserName() {
       return this.$route.params.user || 'shop-owner'
     },
-    // Is a current user selected in store
-    isCurrentUserSelected() {
-      return this.user.userName
+    // Return the selected user messages, if any selected, empty array otherwhise
+    selectedUserMessages() {
+      if (this.selectedUser)
+        return this.users[this.selectedUser].messages
+      return []
+    },
+    // Return whether there is a selected user in store
+    isUserSelected() {
+      return this.selectedUser !== ''
     }
   },
   methods: {
     /**
-     *  Refresh the current user
+     *  Refresh the current user data
      *    - If user is new, register it to local storage
-     *    - If user is already registered in local storage, update store
+     *    - If user is already registered in local storage, set him as selected user
      *    - If user is shop owner, do nothing
      */
-    refreshCurrentUser() {
+    refreshCurrentUserData() {
       const isCurrentUserNew = typeof this.getUser(this.currentUserName) === 'undefined'
       const isUserShopOwner = this.currentUserName === 'shop-owner'
 
       if (isCurrentUserNew && ! isUserShopOwner) {
         this.registerNewUser()
       }
-      else if (! isUserShopOwner)
-        this.$store.dispatch('users/setUser', this.currentUserName)
+      else if (! isUserShopOwner) {
+        this.$store.dispatch('users/setSelectedUser', this.currentUserName)
+      }
     },
     /**
      *  Register a new user
@@ -100,13 +98,11 @@ export default {
       }
     },
     /**
-     *  Refresh the store by hydration
-     *
-     *  @return {Promise}
+     *  Refresh the store by hydration and refresh the current user data
      */
     async refreshStore() {
       await this.hydrateStore()
-      this.refreshCurrentUser()
+      this.refreshCurrentUserData()
     }
   },
   /**
@@ -135,16 +131,10 @@ export default {
 
 <style lang="scss">
 .message-handler-container {
-  max-width: 500px;
-  width: 100%;
   display: flex;
-  align-items: stretch;
-  .message-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    flex: 1;
-    margin-left: 20px;
-  }
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 1;
+  margin-left: 20px;
 }
 </style>

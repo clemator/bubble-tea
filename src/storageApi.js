@@ -15,6 +15,9 @@ function initStorage() {
  *  @return {object}
  */
 function getAllStoredData() {
+  if (! _storage)
+    initStorage()
+
   return JSON.parse(_storage.getItem(storageName))
 }
 
@@ -25,6 +28,9 @@ function getAllStoredData() {
  */
 function setStorageData(data) {
   try {
+    if (! _storage)
+      initStorage()
+
     let parsedData = JSON.stringify(data)
     _storage.setItem(storageName, parsedData)
   }
@@ -34,13 +40,6 @@ function setStorageData(data) {
 }
 
 export default {
-  /**
-   *  Initialization method
-   *  @public
-   */
-  init() {
-    initStorage()
-  },
   /**
    *  Getter method
    *  @public
