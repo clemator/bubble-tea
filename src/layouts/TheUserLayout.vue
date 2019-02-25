@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="the-user-layout">
     COUCOU user {{ $route.params.user }}
     <MessageHandlerContainer></MessageHandlerContainer>
   </div>
@@ -15,3 +15,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.the-user-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>

@@ -24,8 +24,13 @@ function getAllStoredData() {
  *  @param {object} data
  */
 function setStorageData(data) {
-  let parsedData = JSON.stringify(data)
-  _storage.setItem(storageName, parsedData)
+  try {
+    let parsedData = JSON.stringify(data)
+    _storage.setItem(storageName, parsedData)
+  }
+  catch (e) {
+    console.error('Storage API set error: ' + e.toString())
+  }
 }
 
 export default {

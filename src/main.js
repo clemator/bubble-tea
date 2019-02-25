@@ -30,13 +30,6 @@ new Vue({
   store,
   router,
   created() {
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-          .catch(e => { console.error(e.toString()) })
-      })
-    }
-
     storageApi.init()
   }
 }).$mount('#app')

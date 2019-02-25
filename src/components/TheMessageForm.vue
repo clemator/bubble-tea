@@ -1,12 +1,22 @@
 <template>
-  <div
+  <form
     class="the-message-form"
+    @submit="submit()"
   >
-    <input v-model="message" />
-    <button @click="callback(message)">
+    <input
+      v-model="message"
+      class="the-message-form__input"
+      placeholder="Tapez votre message ici..."
+      :disabled="status === 'disabled'"
+    />
+    <button
+      @click="submit()"
+      class="the-message-form__button"
+      :disabled="status === 'disabled' || message === ''"
+    >
       ENVOYER
     </button>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -21,7 +31,52 @@ export default {
     callback: {
       type: Function,
       required: true
+    },
+    status: {
+      type: String,
+      required: false,
+      default: 'default'
+    }
+  },
+  methods: {
+    resetInput() {
+      this.message = ''
+    },
+    submit() {
+      this.callback(this.message)
+      this.resetInput()
     }
   }
 }
 </script>
+
+<style lang="scss">
+.the-message-form {
+  display: flex;
+  height: 30px;
+  padding: 10px 0 0 0;
+  justify-content: space-between;
+  &__input {
+    flex: 3;
+    padding: 0 0 0 10px;
+    margin-right: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: none;
+    outline: none;
+    &:disabled {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &__button {
+    flex: 1;
+    border: 1px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+    &:disabled {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+</style>

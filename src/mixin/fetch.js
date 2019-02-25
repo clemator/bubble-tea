@@ -3,7 +3,7 @@ import storageApi from '../storageApi'
 /**
  *  Fetch Mixin
  *
- *    - This mixin handles the fetch/post business for both users and messages
+ *    - This mixin handles the get/post business for users and messages
  */
 export const fetchMixin = {
   methods: {

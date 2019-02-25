@@ -1,11 +1,13 @@
 /**
  *  Initial state
- *  users { username: { messages } }
- *  user  { username, messages }
+ *  users { userName: { messages: [] } }
  */
 const state = {
   users: {},
-  user : {}
+  user : {
+    userName: '',
+    messages: []
+  }
 }
 
 const getters = {
@@ -47,7 +49,7 @@ const actions = {
    *  @param {Object} commit
    *  @param {Array} users
    */
-  setUsers({ commit }, users) {
+  setUsers({ commit, state }, users) {
     if (Object.keys(users).length === 0)
       return;
 
@@ -84,13 +86,15 @@ const actions = {
 
 const mutations = {
   /**
-   *  Push Users
+   *  Push Users to store
    *
    *  @param {Object} state
    *  @param {Array} users
    */
   pushUsers(state, users) {
     state.users = users
+    if (state.user.userName)
+      state.user.messages = state.users[state.user.userName].messages
   },
   /**
    *  Push a User by it's name
@@ -124,8 +128,10 @@ const mutations = {
 
     let newState = Object.keys(state.users)
       .reduce((acc, userName) => {
-        if (userName === state.user.userName)
-          acc[userName] = state.user
+        if (userName === state.user.userName) {
+          let { messages } = state.user
+          acc[userName] = { messages }
+        }
         else
           acc[userName] = state.users[userName]
         return acc
