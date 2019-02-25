@@ -24,10 +24,7 @@ export default {
   props: {
     messages: {
       type: Array,
-      required: false,
-      default() {
-        return []
-      }
+      required: true
     },
     currentUser: {
       type: String,

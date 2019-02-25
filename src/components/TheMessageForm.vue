@@ -74,6 +74,7 @@ export default {
     border: 1px solid black;
     border-radius: 10px;
     cursor: pointer;
+    outline: none;
     &:disabled {
       background-color: rgba(0, 0, 0, 0.1);
     }

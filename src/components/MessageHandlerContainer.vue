@@ -88,6 +88,7 @@ export default {
 
       return this.postMessage(newMessage)
         .then(this.notifyServiceWorker)
+        .then(this.hydrateStore)
     },
     /**
      *  Notify service worker of an update (new user or new message)
