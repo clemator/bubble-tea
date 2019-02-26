@@ -20,6 +20,17 @@
 </template>
 
 <script>
+
+/**
+ * The component could be improved a bit
+ * 
+ * However the handling of the message could have been done outside.
+ * So that you'll have a real dumb component
+ * 
+ * Moreover the submit handler could have also been externalise by the container
+ * by using the Callback property directly in your elements 
+ * E.g: <button @click="callback(message)" />
+ */
 export default {
   name: 'TheMessageForm',
   data() {
@@ -46,6 +57,33 @@ export default {
       this.message = ''
     },
     /**
+     *  Programmatic wise this will work. However your button doesn't need to do an async.
+     *  Albeit you really wish to use async / await which can be understandable.
+     * 
+     *  /!\ However there's one thing that could happened
+     *  What'll happened if you callback is throwing an error ?
+     *  In this case the error won't be catch /!\
+     * 
+     *  Instead you could use this
+     * 
+     *  const haha = async () => {
+     *   throw new Error('oopsie');
+     *  }
+     *
+     *  const lol = async () => {
+     *    try {
+     *      const res = await haha()
+     *      return res  
+     *    } catch (e) {
+     *      console.warn(e)
+     *    }
+     *  }
+     *
+     *  lol()
+     * 
+     *  Note: In this case it would have been better to use the Promise().then.catch() which 
+     *        should have been easier to read
+     * 
      *  Submit the message to callback function and reset input
      *
      *  @return {Promise}

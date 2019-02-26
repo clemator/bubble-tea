@@ -31,7 +31,10 @@ export default {
       required: true
     }
   },
-  // Scroll to bottom every time the component updates
+  /**
+   * Ok why not
+   * Could have been put in a directive
+   */
   updated() {
     const container = this.$el.querySelector('.message-list')
     container.scrollTop = container.scrollHeight

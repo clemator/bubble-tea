@@ -7,6 +7,7 @@ import TheUserLayout from './layouts/TheUserLayout.vue'
 
 Vue.config.productionTip = false
 
+// You could have put the router in an other file but it's ok for now
 Vue.use(VueRouter)
 
 const routes = [

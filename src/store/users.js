@@ -10,6 +10,8 @@ const state = {
 const getters = {
   /**
    *  Users
+   * 
+   *  Should return an Object ? It's initialized as an Object
    *
    *  @param {Object} state
    *  @return {Array}
@@ -19,6 +21,9 @@ const getters = {
   },
   /**
    *  Seleted user
+   * 
+   *  /!\ SelectedUser is initialized as a String and here we're returning an Object
+   *      This differ from it's original type String (Primitive) -> Object (Non-primitive)
    *
    *  @param {Object} state
    *  @return {Object}
@@ -29,6 +34,8 @@ const getters = {
   /**
    *  User by name from users list
    *    - Getter by method
+   * 
+   *  Here the JS doc should have been @param {Object} state (but i could understand why u said String for userName)
    *
    *  @link https://vuex.vuejs.org/fr/guide/getters.html#acces-par-methode
    *  @param {String} userName
@@ -89,6 +96,11 @@ const mutations = {
    *  @param {Array} users
    */
   pushUsers(state, users) {
+    /**
+     * Hmmm... ok
+     * Maybe do a diff algorithm for adding ? instead of altering directly the store
+     * with the users array ? which can contain unwanted things ?
+     */
     state.users = users
   },
   /**

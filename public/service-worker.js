@@ -1,3 +1,4 @@
+// /!\ Add JSDoc to the service worker
 this.addEventListener('install', (event) => {
   event.waitUntil(self.skipWaiting())
 });

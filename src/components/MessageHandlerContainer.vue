@@ -20,6 +20,17 @@ import { mapState } from 'vuex'
 import TheMessageList from './TheMessageList.vue'
 import TheMessageForm from './TheMessageForm.vue'
 
+/**
+ * Component is a bit monolithic
+ * 
+ * Indeed the instanciation of the Service Worker is done here
+ * It could have been possible to create it in a seperate js file e.g sw_handler.js
+ * 
+ * Moreover this will allow you to create other kind of message
+ * In a more flexible way you could make the service-worker a seperate library
+ * which can be used by a VueJS decorator so that your service-worker & your components
+ * won't be that tightly coupled
+ */
 export default {
   name: 'MessageHandlerContainer',
   components: {
@@ -59,6 +70,16 @@ export default {
       if (isCurrentUserNew && ! isUserShopOwner) {
         this.registerNewUser()
       }
+      /**
+       * In this case you can simplify the code like so
+       * Early return allow to simplify your code which make it more readable
+       * 
+       * if (...) {
+       *   return this.registerNewUser()
+       * }
+       * 
+       * return this.$store...
+       */
       else if (! isUserShopOwner) {
         this.$store.dispatch('users/setSelectedUser', this.currentUserName)
       }
@@ -78,6 +99,8 @@ export default {
      *
      *  @param {String} message
      *  @return {Promise}
+     * 
+     *  See comment at the top
      */
     postNewMessage(message) {
       const newMessage = {
@@ -92,6 +115,8 @@ export default {
     },
     /**
      *  Notify service worker of an update (new user or new message)
+     * 
+     *  See comment at the top
      */
     notifyServiceWorker() {
       if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
@@ -111,6 +136,8 @@ export default {
    *    - Register the service worker
    *    - Add an event listener when it's ready
    *    - Refresh store
+   * 
+   *   See comment at the top
    */
   created() {
     const self = this
