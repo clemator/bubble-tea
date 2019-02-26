@@ -18,12 +18,19 @@ import { mapState } from 'vuex'
 export default {
   name: 'UsersList',
   computed: {
+    // Map the store selectedUser and users collection
     ...mapState('users', ['selectedUser', 'users']),
+    // Return the list of username
     usernameList() {
       return Object.keys(this.users)
     }
   },
   methods: {
+    /**
+     *  Set a username as selected one
+     *
+     *  @param {String} username
+     */
     setActiveUser(username) {
       this.$store.dispatch('users/setSelectedUser', username)
     }

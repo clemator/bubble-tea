@@ -39,12 +39,21 @@ export default {
     }
   },
   methods: {
+    /**
+     *  Reset the input model value
+     */
     resetInput() {
       this.message = ''
     },
-    submit() {
-      this.callback(this.message)
+    /**
+     *  Submit the message to callback function and reset input
+     *
+     *  @return {Promise}
+     */
+    async submit() {
+      const res = await this.callback(this.message)
       this.resetInput()
+      return res
     }
   }
 }
