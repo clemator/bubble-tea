@@ -17,7 +17,7 @@ Regarding the layout components I'm guessing that it's coming from the cookbook.
 - Code restriction: 1.75 / 2
 - Code conduct: 0.5 / 1
 
-#### Total: 13.25 / 20 not that bad, keep it up !
+#### Total: 13.25 / 20 not bad, keep it up !
 
 # bubble-shop
 
