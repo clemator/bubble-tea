@@ -3,7 +3,7 @@
 
 ## Project
 
-This project use `vuex`, `vue-router` and supports Single File Components.
+This project use `vuex`, `vue-router` and supports Single File Components. Please use Chrome to run the project.
 
  - Folders:
    - `src`
@@ -30,11 +30,11 @@ npm install
 ```
 npm run serve
 ```
+Then open a browser tab with http://localhost:8080/#/ and another one with http://localhost:8080/#/{USERNAME}.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+You must ensure in the Chrome dev tools on "Application" tab, option service worker on the left, that the service worker is "running". If not, please refresh the page and check again.
+
+Once it is running, you may start chatting with the creepy owner.
 
 ### Lints and fixes files
 ```
