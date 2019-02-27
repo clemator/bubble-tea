@@ -16,7 +16,7 @@ export const fetchMixin = {
     hydrateStore() {
       return storageApi.get()
         .then((data) => {
-          this.$store.dispatch('users/setUsers', data || {})
+          return this.$store.dispatch('users/setUsers', data || {})
         })
         .catch(console.error)
     },
@@ -44,9 +44,11 @@ export const fetchMixin = {
      *  @return {Promise}
      */
     postUser(userName) {
+      // make a promise chain/all here
       this.$store.dispatch('users/addNewUser', userName)
       this.$store.dispatch('users/setSelectedUser', userName)
       return storageApi.set(this.$store.getters['users/users'])
+        // error should be handled by the consumer
         .catch(console.error)
     },
     /**
@@ -58,6 +60,7 @@ export const fetchMixin = {
     postMessage(message) {
       this.$store.dispatch('users/postMessage', message)
       return storageApi.set(this.$store.getters['users/users'])
+        // error should be handled by the consumer
         .catch(console.error)
     }
   }

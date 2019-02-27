@@ -31,6 +31,7 @@ export default {
      *
      *  @param {String} username
      */
+    // a mapped mutation methods would be shorter and sync
     setActiveUser(username) {
       this.$store.dispatch('users/setSelectedUser', username)
     }
@@ -51,6 +52,7 @@ export default {
     margin-bottom: 15px;
     border: 1px solid black;
     cursor: pointer;
+    // BEM-wise it would be "user-name--active"
     &.active {
       background-color: #DEDEDE;
     }

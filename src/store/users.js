@@ -38,7 +38,8 @@ const getters = {
     return state.users[userName]
   }
 }
-
+// making an extra layering "action" above the "mutations" is not always
+// a good design, as actions are made by design to return `Promise`
 const actions = {
   /**
    *  Set Users
@@ -115,7 +116,9 @@ const mutations = {
    *  @param {Object} state
    *  @param {Object} message
    */
+  // Too much business, an action would be wiser
   postMessage(state, message) {
+    // Almost FP
     let newState = Object.keys(state.users)
       .reduce((acc, userName) => {
         if (userName === state.selectedUser) {

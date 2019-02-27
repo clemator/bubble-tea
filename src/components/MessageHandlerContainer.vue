@@ -53,9 +53,11 @@ export default {
      *    - If user is shop owner, do nothing
      */
     refreshCurrentUserData() {
+      // const isCurrentUserNew = this.getUser(this.currentUserName) === undefined
       const isCurrentUserNew = typeof this.getUser(this.currentUserName) === 'undefined'
       const isUserShopOwner = this.currentUserName === 'shop-owner'
 
+      // return statement is semantically better than imbrications of conditions
       if (isCurrentUserNew && ! isUserShopOwner) {
         this.registerNewUser()
       }
@@ -79,6 +81,7 @@ export default {
      *  @param {String} message
      *  @return {Promise}
      */
+    // unpure, dissociate sender variable with a function argument
     postNewMessage(message) {
       const newMessage = {
         sender : this.currentUserName || 'shop-owner',

@@ -9,8 +9,10 @@
       placeholder="Tapez votre message ici..."
       :disabled="status === 'disabled'"
     />
+    <!-- disabled expression needs its own computed value, as the 
+         business needs explanation -->
     <button
-      @click="submit()"
+      type="submit"
       class="the-message-form__button"
       :disabled="status === 'disabled' || message === ''"
     >
@@ -50,6 +52,7 @@ export default {
      *
      *  @return {Promise}
      */
+    // what is the benefit of the `return res` here?
     async submit() {
       const res = await this.callback(this.message)
       this.resetInput()

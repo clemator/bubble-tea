@@ -1,3 +1,30 @@
+Overall, it is a good prototype of what could be the final result, as on the surface it is functionaly of working product.
+
+Nevertheless I'll said that the completion is at 50% of the objectives/aims. What it is done productwise, is however lacking technicalwise.
+
+Yet even if diminished in complexity, the developed business is convoluted. Completing the remaining 50% would lead to a refactoring.
+
+--------------------------------------------
+
+- Respect of rules: 2.5 / 5
+- Functionality: 3.0 / 5
+- Code quality: 3.0 / 7
+- Code restriction: 1.25 / 2
+- Code conduct: 0.5 / 1
+
+--------------------------------------------
+
+* overall async resolving data has not been handled properly to render a fluid UX/UI
+
+* developer mistakes: async handling, falsy or lack of JSDocs, lack of explanation/comments, component signature, etc. => a full set could have been finalised within 2 or 3 hours
+
+* `<the-message-list>` is more of a `<message-list>` than a layout component
+
+* <MessageHandlerContainer> is too monolithic:
+** mixing "client" and "admin" business leads to unwanted intrincated design
+** event message business, resolving data business, store business are too intertwined
+** selected patterns seems unappropriate
+
 # bubble-shop
 
 

@@ -1,3 +1,10 @@
+// Good start
+
+// Need:
+// - documentation: best articles, cookbook
+// - JSDoc, as the ServiceWorkerGlobalScope and Lifecycle can be very trikcy (`waitUntil`, `async`, etc.)
+// - `self` has been chosen by the community to refer to the ServiceWorkerGlobalScope (instead of `this`)
+
 this.addEventListener('install', (event) => {
   event.waitUntil(self.skipWaiting())
 });

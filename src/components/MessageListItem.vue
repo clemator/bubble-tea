@@ -10,10 +10,12 @@
 export default {
   name: 'MessageListItem',
   props: {
+    // Please use only the message.content
     message: {
       type: Object,
       required: true
     }
+    // Please use "own-message" modifier as a props
   }
 }
 </script>
@@ -29,6 +31,7 @@ export default {
   border-radius: 5px;
   background-color: #FFF;
   text-align: justify;
+  // BEM wised: ".message-item--own";
   &.own-message {
     align-self: flex-end;
     background-color: rgba(0, 0, 0, 0.1);
